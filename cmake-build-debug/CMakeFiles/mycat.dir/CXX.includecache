@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././include/apue.h
+sys/types.h
+-
+sys/stat.h
+-
+sys/termios.h
+-
+sys/ioctl.h
+-
+stdio.h
+-
+stdlib.h
+-
+stddef.h
+-
+string.h
+-
+unistd.h
+-
+signal.h
+-
+error.c
+.././include/error.c
+
+.././include/error.c
+apue.h
+.././include/apue.h
+errno.h
+-
+stdarg.h
+-
+
+/Users/kinyang/GitHub/UNIX_Environment_Programming/fileio/mycat.cpp
+apue.h
+/Users/kinyang/GitHub/UNIX_Environment_Programming/fileio/apue.h
+

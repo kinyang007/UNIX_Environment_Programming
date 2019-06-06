@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /Users/kinyang/GitHub/UNIX_Environment_Programming/cmake-buil
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -109,6 +109,19 @@ preinstall/fast:
 depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+#=============================================================================
+# Target rules for targets named fileflags
+
+# Build rule for target.
+fileflags: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 fileflags
+.PHONY : fileflags
+
+# fast build rule for target.
+fileflags/fast:
+	$(MAKE) -f CMakeFiles/fileflags.dir/build.make CMakeFiles/fileflags.dir/build
+.PHONY : fileflags/fast
 
 #=============================================================================
 # Target rules for targets named mycat
@@ -148,6 +161,33 @@ seek: cmake_check_build_system
 seek/fast:
 	$(MAKE) -f CMakeFiles/seek.dir/build.make CMakeFiles/seek.dir/build
 .PHONY : seek/fast
+
+fileio/fileflags.o: fileio/fileflags.cpp.o
+
+.PHONY : fileio/fileflags.o
+
+# target to build an object file
+fileio/fileflags.cpp.o:
+	$(MAKE) -f CMakeFiles/fileflags.dir/build.make CMakeFiles/fileflags.dir/fileio/fileflags.cpp.o
+.PHONY : fileio/fileflags.cpp.o
+
+fileio/fileflags.i: fileio/fileflags.cpp.i
+
+.PHONY : fileio/fileflags.i
+
+# target to preprocess a source file
+fileio/fileflags.cpp.i:
+	$(MAKE) -f CMakeFiles/fileflags.dir/build.make CMakeFiles/fileflags.dir/fileio/fileflags.cpp.i
+.PHONY : fileio/fileflags.cpp.i
+
+fileio/fileflags.s: fileio/fileflags.cpp.s
+
+.PHONY : fileio/fileflags.s
+
+# target to generate assembly for a file
+fileio/fileflags.cpp.s:
+	$(MAKE) -f CMakeFiles/fileflags.dir/build.make CMakeFiles/fileflags.dir/fileio/fileflags.cpp.s
+.PHONY : fileio/fileflags.cpp.s
 
 fileio/hole.o: fileio/hole.cpp.o
 
@@ -236,11 +276,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... fileflags"
 	@echo "... mycat"
 	@echo "... hole"
+	@echo "... rebuild_cache"
 	@echo "... seek"
+	@echo "... fileio/fileflags.o"
+	@echo "... fileio/fileflags.i"
+	@echo "... fileio/fileflags.s"
 	@echo "... fileio/hole.o"
 	@echo "... fileio/hole.i"
 	@echo "... fileio/hole.s"

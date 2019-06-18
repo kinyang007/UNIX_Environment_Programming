@@ -213,3 +213,22 @@ int fcntl(int fd, int cmd, ... /* int arg */);
   * 获取/设置记录锁(cmd = `F_GETLK` 、 `F_SETLK` 或 `F_SETLKW`)
 * 在修改文件描述符标志或文件状态标志时必须谨慎，先要获得现在的标志值，然后按照期望修改它，最后设置新标志值。不能只是执行`F_SETFD`或`F_SETFL`命令，这样会关闭以前设置的标志位
   * 实例：[setfl.cpp](https://github.com/kinyang007/UNIX_Environment_Programming/blob/master/fileio/setfl.cpp)
+  * 在程序[mycat.cpp](https://github.com/kinyang007/UNIX_Environment_Programming/blob/master/fileio/mycat.cpp)开始处加上下面一行以调用`set_fl`，则开启了同步写标志
+  ```cpp
+  set_fl(STDOUT_FILENO, O_SYNC);
+  ``` 
+
+### 函数ioctl
+```cpp
+#include <unistd.h>     // System V
+#include <sys/ioctl.h>  // BSD and Linux
+
+int ioctl(int fd, int request, ...);
+/*
+ *  返回值：若出错，返回-1；若成功，返回其他值
+ */
+```
+* `ioctl`函数一直是I/O操作的杂物箱。不能用本章中其他函数表示的I/O操作通常都能用`ioctl`表示
+* 磁盘操作使我们可以在磁带上写一个文件结束标志、倒带、越过指定个数的文件或记录等，用本章中的其他函数(`read`, `write`, `lseek`等)都难于表示这些操作，所以，对这些设备进行操作最容易的方法就是使用`ioctl`
+
+### /dev/fd
